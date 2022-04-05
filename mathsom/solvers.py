@@ -1,6 +1,6 @@
 from collections.abc import Sequence, Callable
 from numerics import differentiate
-from auxfuncs import standardize_function
+from auxfuncs import reduce_args
 
 
 def newton_rhapson_solver(objective_value: float, func: Callable, initial_guess: float, args: Sequence=None, argument_index: int=None, max_steps: int=100, epsilon: float=0.0000001, differentiation_step=0.0000001, verbose_step=True, retry=True) -> float:
@@ -16,7 +16,7 @@ def newton_rhapson_solver(objective_value: float, func: Callable, initial_guess:
     initial_guess: float
         Initial guess solution.
     args: Sequence, optional
-        Sequence of inputs of objective funcion. If function has other arguments like f(x,y) -> z then args: [x, y].
+        Sequence of inputs of objective function. If function has other arguments like f(x,y) -> z then args: [x, y].
     argument_index: int, optional
         Index of the parameter to be differentiated within the args Sequence.
         Example: func(x, y) -> z, argument_index = 1 for y.
@@ -36,7 +36,7 @@ def newton_rhapson_solver(objective_value: float, func: Callable, initial_guess:
     float
         Estimated solution value.
     '''
-    func = standardize_function(func, args, argument_index)
+    func = reduce_args(func, args, argument_index)
 
     step = 1_000.0 * epsilon
     solution = initial_guess
@@ -82,7 +82,7 @@ def bisection_solver(objective_value: float, func: Callable, lower_bound: float,
     max_iters: int, optional
         Maximum number of iterations. Default is 100.
     func_inputs: Sequence, optional
-        Sequence of inputs of objective funcion. Inputs order in Sequence must be the same as those of the function parameters.
+        Sequence of inputs of objective function. Inputs order in Sequence must be the same as those of the function parameters.
         Example: func(x, y) -> z, func_inputs = [x, y]
     argument_index: int, optional
         Index of the parameter to be solved within the initial_guess Sequence.
@@ -93,7 +93,7 @@ def bisection_solver(objective_value: float, func: Callable, lower_bound: float,
     float
         Estimated solution value.
     '''
-    func = standardize_function(func, args, argument_index)
+    func = reduce_args(func, args, argument_index)
     def objective_function(x):
         return func(x) - objective_value
     
