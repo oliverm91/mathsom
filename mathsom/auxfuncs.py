@@ -1,4 +1,5 @@
 from collections.abc import Sequence, Callable
+from inspect import signature
 
 def reduce_args(func: Callable, args: Sequence=None, arg_index: int=None) -> Callable:
     '''
@@ -19,14 +20,14 @@ def reduce_args(func: Callable, args: Sequence=None, arg_index: int=None) -> Cal
     -------
     Callable
         Function with one argument f(x).'''
-    if args is not None and arg_index is None:
-        raise ValueError('arg_index must be specified if args is not None')
-    if args is None:
-        def reduced_func(arg) -> float:
-            return func(arg)
-    else:
-        def reduced_func(arg) -> float:
-            args[arg_index] = arg
+    if len(signature(func).parameters) == 1: #If function has only one parameter, return function itself.
+        return func
+    else: #If function has more than one parameter, return a function that has been reduced to a single argument.
+        if not isinstance(args, Sequence):
+            raise ValueError('function passed has more than one input, then args must be specified as Sequence.')
+        if arg_index is None:
+            raise ValueError('function passed has more than one input, then arg_index must be specified.')
+        def reduced_func(x):
+            args[arg_index] = x
             return func(*args)
-
-    return reduced_func
+        return reduced_func
