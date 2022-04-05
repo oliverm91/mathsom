@@ -6,35 +6,23 @@ from .auxfuncs import reduce_args
 def newton_rhapson_solver(objective_value: float, func: Callable, initial_guess: float, args: Sequence=None, argument_index: int=None, max_steps: int=100, epsilon: float=0.0000001, differentiation_step=0.0000001, verbose_step=True, retry=True) -> float:
     '''
     Newton Rhapson Solver for any Python function that returns a float number.
-    
-    Parameters
     ----------
-    objective_value: float
-        Solution value to be achieved.
-    func: Callable
-        Python objective function to be solved.
-    initial_guess: float
-        Initial guess solution.
-    args: Sequence, optional
-        Sequence of inputs of objective function. If function has other arguments like f(x,y) -> z then args: [x, y].
-    argument_index: int, optional
-        Index of the parameter to be differentiated within the args Sequence.
-        Example: func(x, y) -> z, argument_index = 1 for y.
-    max_steps: int, optional
-        Maximum number of iterations. Default is 100.
-    epsilon: float, optional
-        Stoping criteria: step < epsilon. Default is 0.0000001.
-    differentiation_step: float, optional
-        Step size for numerical differentiation. Default is 0.0000001.
-    verbose_step: bool, optional
-        Prints error when slope is 0. Default is True.
-    retry: bool, optional
-        Retries one time if slope is 0 increasing differentiation_step in *10. Default is True.
-        
+    Parameters
+    ----
+        objective_value (float): Solution value to be achieved.
+        func (Callable): Python objective function to be solved.
+        initial_guess (float): Initial guess of the solution.
+        args (Sequence): Optional. Sequence of arguments to be passed to the function. Example: func(x, y) -> z, args = [x, y]. Not needed if function has only one parameter (default None)
+        arg_index (int): Optional. Index of the argument to be passed to the function. Example: func(x, y) -> z, arg_index = 1. Not needed if function has only one parameter (default None)
+        max_steps (int): Optional. Maximum number of iterations. Default is 100.
+        epsilon (float): Optional. Stoping criteria: abs(step) < epsilon. Default is 0.0000001.
+        differentiation_step (float): Optional. Step size for the differentiation. Default is 0.0000001.
+        verbose_step (bool): Optional. If True, prints the current step. Default is True.
+        retry (bool): Optional. If True, retries the algorithm if the initial guess is not a solution. Default is True.
+    ----
     Returns
-    -------
-    float
-        Estimated solution value.
+    ----
+        solution (float): Estimated solution value.
     '''
     func = reduce_args(func, args, argument_index)
 
@@ -66,32 +54,21 @@ def newton_rhapson_solver(objective_value: float, func: Callable, initial_guess:
 def bisection_solver(objective_value: float, func: Callable, lower_bound: float, higher_bound: float, args: Sequence=None, argument_index: int=None, epsilon: float=0.0000001, max_iters: int=100) -> float:
     '''
     Bisection Solver for any Python function that returns a float number.
-    
-    Parameters
     ----------
-    objective_value: float
-        Solution value to be achieved.
-    func: Callable
-        Python objective function to be solved.
-    lower_bound: float
-        Lower bound solution of the interval to be searched.
-    higher_bound: float
-        Higher bound solution of the interval to be searched.
-    epsilon: float, optional
-        Stoping criteria: (f(guess)-objective_value)*(f(updated_lower_bound)-objective_value) < epsilon. Default is 0.0000001.
-    max_iters: int, optional
-        Maximum number of iterations. Default is 100.
-    func_inputs: Sequence, optional
-        Sequence of inputs of objective function. Inputs order in Sequence must be the same as those of the function parameters.
-        Example: func(x, y) -> z, func_inputs = [x, y]
-    argument_index: int, optional
-        Index of the parameter to be solved within the initial_guess Sequence.
-        Example: func(x, y) -> z, argument_index = 1 for y.
-
+    Parameters
+    ----
+        objective_value (float): Solution value to be achieved.
+        func (Callable): Python objective function to be solved.
+        lower_bound (float): Lower bound guess of the solution.
+        higher_bound (float): Higher bound guess of the solution.
+        args (Sequence): Optional. Sequence of arguments to be passed to the function. Example: func(x, y) -> z, args = [x, y]. Not needed if function has only one parameter (default None)
+        arg_index (int): Optional. Index of the argument to be passed to the function. Example: func(x, y) -> z, arg_index = 1. Not needed if function has only one parameter (default None)
+        epsilon (float): Optional. Stoping criteria: abs(step) < epsilon. Default is 0.0000001.
+        max_iters (int): Optional. Maximum number of iterations. Default is 100.    
+    ----
     Returns
-    -------
-    float
-        Estimated solution value.
+    ----
+        solution (float): Estimated solution value.
     '''
     func = reduce_args(func, args, argument_index)
     def objective_function(x):
