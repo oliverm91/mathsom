@@ -2,6 +2,12 @@ from typing import Union, get_args
 import numpy as np
 from scipy.interpolate import CubicSpline
 from collections.abc import Sequence
+from enum import Enum
+
+class InterpolationMethod(Enum):
+    LINEAR = 'linear'
+    LOGLINEAR = 'loglinear'
+    CUBIC_SPLINE = 'cubic_spline'
 
 def adapt_interpolation_result(x: Union[float, Sequence, np.ndarray], result: Union[float, Sequence, np.ndarray]) -> Union[float, np.ndarray]:
     '''
@@ -21,8 +27,13 @@ def adapt_interpolation_result(x: Union[float, Sequence, np.ndarray], result: Un
 
     if isinstance(x, get_args(Union[Sequence, np.ndarray])):
         result = np.array(result)
-    elif isinstance(result, get_args(Union[Sequence, np.ndarray])):
-        result = float(result[0])
+    elif isinstance(result, np.ndarray):
+        if len(result.shape)==0:
+            return float(result)
+        else:
+            return float(result[0])
+    elif isinstance(result, Sequence):
+        return float(result[0])
 
     return result
 
@@ -30,7 +41,7 @@ def check_pairs_interpolation(x_input: Union[Sequence, np.ndarray], y_input: Uni
     if len(x_input) != len(y_input):
         raise ValueError(f'x_input and y_input must have the same length. x_input: {len(x_input)}, y_input: {len(y_input)}')
 
-def linear_interpolation(x: Union[float, Sequence, np.ndarray], x_input: Union[Sequence, np.ndarray], y_input: Union[Sequence, np.ndarray]) -> Union[float, np.ndarray]:
+def linear_interpolation(x: Union[float, Sequence, np.ndarray], known_xs: Union[Sequence, np.ndarray], known_ys: Union[Sequence, np.ndarray]) -> Union[float, np.ndarray]:
     '''
     Linear interpolation. interpolates y(x) for a given number of pairs (x, y) received in 2 Sequence or np.ndarray of same length.
     
@@ -38,9 +49,9 @@ def linear_interpolation(x: Union[float, Sequence, np.ndarray], x_input: Union[S
     ----------
     x : Union[float, Sequence, np.ndarray]
         Value(s) to be interpolated.
-    x_input : Union[Sequence, np.ndarray]
+    known_xs : Union[Sequence, np.ndarray]
         Sequence or np.ndarray of x values.
-    y_input : Union[Sequence, np.ndarray]
+    known_ys : Union[Sequence, np.ndarray]
         Sequence  or np.ndarray of y values.
 
     Returns
@@ -48,12 +59,10 @@ def linear_interpolation(x: Union[float, Sequence, np.ndarray], x_input: Union[S
     Union[float, np.ndarray]
         Interpolated y(x) value(s).
     '''
-    check_pairs_interpolation(x_input, y_input)
-    result = np.interp(x, x_input, y_input)
-    result = adapt_interpolation_result(x, result)
+    result = np.interp(x, known_xs, known_ys)
     return result
 
-def loglinear_interpolation(x, x_input, y_input):
+def loglinear_interpolation(x, known_xs, known_ys):
     '''
     Log-linear interpolation. interpolates y(x) for a given number of pairs (x, y) received in 2 Sequence or np.ndarray of same length.
     
@@ -61,9 +70,9 @@ def loglinear_interpolation(x, x_input, y_input):
     ----------
     x : Union[float, Sequence, np.ndarray]
         Value(s) to be interpolated.
-    x_input : Union[Sequence, np.ndarray]
+    known_xs : Union[Sequence, np.ndarray]
         Sequence or np.ndarray of x values.
-    y_input : Union[Sequence, np.ndarray]
+    known_ys : Union[Sequence, np.ndarray]
         Sequence or np.ndarray of y values.
     
     Returns
@@ -71,14 +80,12 @@ def loglinear_interpolation(x, x_input, y_input):
     Union[float, np.ndarray]
         Interpolated y(x) value(s).
     '''
-    check_pairs_interpolation(x_input, y_input)
-    log_y_input = np.log(y_input)
-    log_y_result = linear_interpolation(x, x_input, log_y_input)
+    log_known_ys = np.log(known_ys)
+    log_y_result = linear_interpolation(x, known_xs, log_known_ys)
     result = np.exp(log_y_result)
-    result = adapt_interpolation_result(x, result)
     return result
     
-def cubic_spline_interpolation(x, x_input, y_input):
+def cubic_spline_interpolation(x, known_xs, known_ys):
     '''
     Cubic spline interpolation. interpolates y(x) for a given number of pairs (x, y) received in 2 Sequence or np.ndarray of same length.
     
@@ -86,9 +93,9 @@ def cubic_spline_interpolation(x, x_input, y_input):
     ----------
     x : Union[float, Sequence, np.ndarray]
         Value(s) to be interpolated.
-    x_input : Union[Sequence, np.ndarray]
+    known_xs : Union[Sequence, np.ndarray]
         Sequence or np.ndarray of x values.
-    y_input : Union[Sequence, np.ndarray]
+    known_ys : Union[Sequence, np.ndarray]
         Sequence or np.ndarray of y values.
     
     Returns
@@ -96,8 +103,37 @@ def cubic_spline_interpolation(x, x_input, y_input):
     Union[float, np.ndarray]
         Interpolated y(x) value(s).
     '''
-    check_pairs_interpolation(x_input, y_input)
-    cs = CubicSpline(x_input, y_input)
+    cs = CubicSpline(known_xs, known_ys)
     result = cs(x)
+    return result
+
+interpolation_methods_map = {
+    InterpolationMethod.LINEAR: linear_interpolation, 
+    InterpolationMethod.LOGLINEAR: loglinear_interpolation, 
+    InterpolationMethod.CUBIC_SPLINE: cubic_spline_interpolation
+}
+
+def interpolate(x: Union[float, Sequence, np.ndarray], known_xs: Union[Sequence, np.ndarray], known_ys: Union[Sequence, np.ndarray], interpolation_method: InterpolationMethod=InterpolationMethod.LINEAR) -> Union[float, np.ndarray]:
+    '''
+    Interpolates y(x) for a given number of pairs (x, y) received in 2 Sequence or np.ndarray of same length.
+    
+    Parameters
+    ----------
+    x : Union[float, Sequence, np.ndarray]
+        Value(s) to be interpolated.
+    known_xs : Union[Sequence, np.ndarray]
+        Sequence or np.ndarray of x values.
+    known_ys : Union[Sequence, np.ndarray]
+        Sequence or np.ndarray of y values.
+    interpolation_method : InterpolationMethod, optional
+        Interpolation method. The default is InterpolationMethod.LINEAR.
+        
+    Returns
+    -------
+    Union[float, np.ndarray]
+        Interpolated y(x) value(s).'''
+    check_pairs_interpolation(known_xs, known_ys)
+    interpolation_func = interpolation_methods_map[interpolation_method]
+    result = interpolation_func(x, known_xs, known_ys)
     result = adapt_interpolation_result(x, result)
     return result
