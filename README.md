@@ -22,6 +22,6 @@ Contents:
   - ~~Interpolation test.~~
   - ~~Numerics test.~~
   - ~~Solver test.~~
-- `__init__.py` files.
+- ~~`__init__.py` files.~~
 - `setup.py` file.
 - pypi publication.
