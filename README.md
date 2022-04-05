@@ -16,7 +16,7 @@ Contents:
 - Auxiliar functions:
   - Function standarization: convert function with multiple inputs to function with one input and other variable as constants f(x, y, z) -> g(x)
  
- #ToDo
+ # ToDo
  - Test file.
  - __init__.py file.
  - setup.py file.
