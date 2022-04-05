@@ -17,7 +17,7 @@ Contents:
   - Function standarization: convert function with multiple inputs to function with one input and other variable as constants f(x, y, z) -> g(x)
  
  # ToDo
-- ~~Test files.
+- ~~Test files.~~
   - ~~Auxiliar functions test.~~
   - ~~Interpolation test.~~
   - ~~Numerics test.~~
