@@ -1,6 +1,6 @@
 from collections.abc import Sequence, Callable
-from numerics import differentiate
-from auxfuncs import reduce_args
+from .numerics import differentiate
+from .auxfuncs import reduce_args
 
 
 def newton_rhapson_solver(objective_value: float, func: Callable, initial_guess: float, args: Sequence=None, argument_index: int=None, max_steps: int=100, epsilon: float=0.0000001, differentiation_step=0.0000001, verbose_step=True, retry=True) -> float:
@@ -42,7 +42,7 @@ def newton_rhapson_solver(objective_value: float, func: Callable, initial_guess:
     solution = initial_guess
     steps = 0
     try:
-        while abs(step) > epsilon or steps < max_steps:
+        while abs(step) > epsilon or steps > max_steps:
             estimated_value = func(solution)
             slope = differentiate(func, solution, argument_index)
             step = (estimated_value - objective_value) / slope
@@ -58,7 +58,7 @@ def newton_rhapson_solver(objective_value: float, func: Callable, initial_guess:
         if retry:
             if verbose_step:
                 print('Retrying...')
-            solution = newton_rhapson_solver(objective_value, func, initial_guess, args, argument_index, max_steps, epsilon, differentiation_step * 10, verbose_step, retry=False)
+            solution = newton_rhapson_solver(objective_value, func, initial_guess, args, argument_index, max_steps, epsilon * 10, differentiation_step * 10, verbose_step, retry=False)
             return solution
         else:
             raise zde
