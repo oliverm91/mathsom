@@ -23,5 +23,7 @@ Contents:
   - ~~Numerics test.~~
   - ~~Solver test.~~
 - ~~`__init__.py` files.~~
-- `setup.py` file.
+- ~~`setup.py` file.~~
+- ~~testpypi publication.~~
+- test testpypi pip install in empty enviroment
 - pypi publication.
