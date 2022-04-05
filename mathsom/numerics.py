@@ -1,5 +1,5 @@
 from collections.abc import Sequence, Callable
-from auxfuncs import reduce_args
+from .auxfuncs import reduce_args
 from itertools import accumulate, repeat
 
 
@@ -65,3 +65,4 @@ def integrate(func: Callable, x_start: float, x_end: float, args: Sequence=None,
     area = sum(map(func, xs))
     area = area * 2.0 + func(x_start) + func(x_end)
     return area * step_length / 2.0
+
