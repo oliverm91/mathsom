@@ -1,1 +1,1 @@
-from .numerics import *
+from .solvers import *
