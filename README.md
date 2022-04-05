@@ -20,7 +20,7 @@ Contents:
 - Test files.
   - ~~Auxiliar functions test.~~
   - ~~Interpolation test.~~
-  - Numerics test.
+  - ~~Numerics test.~~
   - Solver test.
 - __init__.py files.
 - setup.py file.
