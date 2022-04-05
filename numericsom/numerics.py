@@ -79,7 +79,6 @@ def loglinear_interpolation(x, x_input, y_input):
     result = np.exp(log_y_result)
     return result if isinstance(x, Iterable) else result[0]
     
-
 def cubic_spline_interpolation(x, x_input, y_input):
     cs = CubicSpline(x_input, y_input)
     result = cs(x)
