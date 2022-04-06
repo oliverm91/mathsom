@@ -14,7 +14,7 @@ Math related library meant for personal use.
   - LogLinear
   - CubicSpline 
 - Auxiliar functions:
-  - Function standarization: convert function with multiple inputs to function with one input and other variable as constants f(x, y, z) -> g(x)
+  - Function standarization: converts a function with multiple inputs to a function with one input and other variables as constants f(x, y, z) -> g(x)
 
 ## Requirements:
 - Python: >=3.8
