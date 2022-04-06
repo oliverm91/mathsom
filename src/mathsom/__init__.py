@@ -1,2 +1,2 @@
-from mathsom import * #ad
+from mathsom import *
 
