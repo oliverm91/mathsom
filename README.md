@@ -18,6 +18,7 @@ Math related library meant for personal use.
 
 ## Install instructions:
 Easly install with **pip**. See https://pypi.org/project/mathsom/
+
 `pip install mathsom`
 
 ## Requirements:
