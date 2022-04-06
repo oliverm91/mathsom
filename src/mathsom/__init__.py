@@ -1,1 +1,1 @@
-#from . import auxfuncs
+from mathsom import *
