@@ -16,6 +16,10 @@ Math related library meant for personal use.
 - Auxiliar functions:
   - Function standarization: converts a function with multiple inputs to a function with one input and other variables as constants f(x, y, z) -> g(x)
 
+## Install instructions:
+Easly install with **pip**. See https://pypi.org/project/mathsom/
+`pip install mathsom`
+
 ## Requirements:
 - Python: >=3.8
 - Packages: numpy scipy
