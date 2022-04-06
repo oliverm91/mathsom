@@ -20,7 +20,7 @@ Math related library meant for personal use.
 - Auxiliar functions:
   - Function standarization: convert function with multiple inputs to function with one input and other variable as constants f(x, y, z) -> g(x)
  
- # ToDo:
+ ## ToDo:
 - ~~Test files.~~
   - ~~Auxiliar functions test.~~
   - ~~Interpolation test.~~
