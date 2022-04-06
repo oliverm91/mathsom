@@ -19,15 +19,3 @@ Math related library meant for personal use.
 ## Requirements:
 - Python: >=3.8
 - Packages: numpy scipy
-
- ## ToDo:
-- ~~Test files.~~
-  - ~~Auxiliar functions test.~~
-  - ~~Interpolation test.~~
-  - ~~Numerics test.~~
-  - ~~Solver test.~~
-- ~~`__init__.py` files.~~
-- ~~`setup.py` file.~~
-- ~~testpypi publication.~~
-- ~~test testpypi pip install in empty enviroment~~
-- ~~pypi publication.~~
