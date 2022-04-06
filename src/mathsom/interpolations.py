@@ -34,7 +34,7 @@ def adapt_interpolation_result(x: Union[float, Sequence, np.ndarray], result: Un
         return float(result[0])
 
     return result
-adapt_interpolation_result(1,)
+
 def check_pairs_interpolation(x_input: Union[Sequence, np.ndarray], y_input: Union[Sequence, np.ndarray]) -> None:
     if len(x_input) != len(y_input):
         raise ValueError(f'x_input and y_input must have the same length. x_input: {len(x_input)}, y_input: {len(y_input)}')
