@@ -2,10 +2,6 @@
 
 Math related library meant for personal use.
 
-## Requirements:
-- Python: >=3.8
-- Packages: numpy scipy
-
 ## Contents:
 - Solvers (function can contain more than one input): 
   - Newton Rhapson method (numerical differentiation)
@@ -19,7 +15,11 @@ Math related library meant for personal use.
   - CubicSpline 
 - Auxiliar functions:
   - Function standarization: convert function with multiple inputs to function with one input and other variable as constants f(x, y, z) -> g(x)
- 
+
+## Requirements:
+- Python: >=3.8
+- Packages: numpy scipy
+
  ## ToDo:
 - ~~Test files.~~
   - ~~Auxiliar functions test.~~
