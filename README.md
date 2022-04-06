@@ -2,7 +2,11 @@
 
 Math related library meant for personal use.
 
-Contents:
+## Requirements:
+- Python: >=3.8
+- Packages: numpy scipy
+
+## Contents:
 - Solvers (function can contain more than one input): 
   - Newton Rhapson method (numerical differentiation)
   - Bisection method
@@ -16,7 +20,7 @@ Contents:
 - Auxiliar functions:
   - Function standarization: convert function with multiple inputs to function with one input and other variable as constants f(x, y, z) -> g(x)
  
- # ToDo
+ # ToDo:
 - ~~Test files.~~
   - ~~Auxiliar functions test.~~
   - ~~Interpolation test.~~
@@ -25,5 +29,5 @@ Contents:
 - ~~`__init__.py` files.~~
 - ~~`setup.py` file.~~
 - ~~testpypi publication.~~
-- test testpypi pip install in empty enviroment
-- pypi publication.
+- ~~test testpypi pip install in empty enviroment~~
+- ~~pypi publication.~~
