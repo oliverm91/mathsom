@@ -103,7 +103,7 @@ def cubic_spline_interpolation(x, known_xs, known_ys):
     result = cs(x)
     return result
 
-interpolation_methods_map = {
+_interpolation_methods_map = {
     InterpolationMethod.LINEAR: linear_interpolation, 
     InterpolationMethod.LOGLINEAR: loglinear_interpolation, 
     InterpolationMethod.CUBIC_SPLINE: cubic_spline_interpolation
@@ -126,7 +126,7 @@ def interpolate(x: Union[float, Sequence, np.ndarray], known_xs: Union[Sequence,
             Interpolated y(x) value(s).
     '''
     check_pairs_interpolation(known_xs, known_ys)
-    interpolation_func = interpolation_methods_map[interpolation_method]
+    interpolation_func = _interpolation_methods_map[interpolation_method]
     result = interpolation_func(x, known_xs, known_ys)
     result = adapt_interpolation_result(x, result)
     return result
