@@ -85,6 +85,7 @@ def loglinear_interpolation(x, known_xs, known_ys):
     log_y_result = linear_interpolation(x, known_xs, log_known_ys)
     result = np.exp(log_y_result)
     return result
+    
 def cubic_spline_interpolation(x, known_xs, known_ys):
     '''
     Cubic spline interpolation. interpolates y(x) for a given number of pairs (x, y) received in 2 Sequence or np.ndarray of same length.
