@@ -130,4 +130,3 @@ def interpolate(x: Union[float, Sequence, np.ndarray], known_xs: Union[Sequence,
     result = interpolation_func(x, known_xs, known_ys)
     result = adapt_interpolation_result(x, result)
     return result
-
