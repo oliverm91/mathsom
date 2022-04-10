@@ -3,11 +3,33 @@ import numpy as np
 from scipy.interpolate import CubicSpline
 from collections.abc import Sequence
 from enum import Enum
+from multimethod import multimethod
 
 class InterpolationMethod(Enum):
     LINEAR = 'linear'
     LOGLINEAR = 'loglinear'
     CUBIC_SPLINE = 'cubic_spline'
+
+
+@multimethod
+def _adapt_interpolation_result(x: Union[float, Sequence, np.ndarray], result: float) -> float:
+    return result
+
+@multimethod
+def _adapt_interpolation_result(x: float, result: Sequence) -> float:
+    return result[0]
+
+@multimethod
+def _adapt_interpolation_result(x: float, result: np.ndarray) -> float:
+    return float(result)
+
+@multimethod
+def _adapt_interpolation_result(x: Union[Sequence, np.ndarray], result: Sequence) -> np.ndarray:
+    return np.array(result)
+
+@multimethod
+def _adapt_interpolation_result(x: Union[Sequence, np.ndarray], result: np.ndarray) -> np.ndarray:
+    return result
 
 def adapt_interpolation_result(x: Union[float, Sequence, np.ndarray], result: Union[float, Sequence, np.ndarray]) -> Union[float, np.ndarray]:
     '''
@@ -22,18 +44,7 @@ def adapt_interpolation_result(x: Union[float, Sequence, np.ndarray], result: Un
     ----
         result (Union[float, np.ndarray]): Adapted interpolation result.
     '''
-
-    if isinstance(x, get_args(Union[Sequence, np.ndarray])):
-        result = np.array(result)
-    elif isinstance(result, np.ndarray):
-        if len(result.shape)==0:
-            return float(result)
-        else:
-            return float(result[0])
-    elif isinstance(result, Sequence):
-        return float(result[0])
-
-    return result
+    return _adapt_interpolation_result(x, result)
 
 def check_pairs_interpolation(x_input: Union[Sequence, np.ndarray], y_input: Union[Sequence, np.ndarray]) -> None:
     if len(x_input) != len(y_input):

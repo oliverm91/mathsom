@@ -12,9 +12,7 @@ Math related library meant for personal use.
 - Interpolations (uses external libraries for performance, but handles different kind of inputs/outputs):
   - Linear
   - LogLinear
-  - CubicSpline 
-- Auxiliar functions:
-  - Function standarization: converts a function with multiple inputs to a function with one input and other variables as constants f(x, y, z) -> g(x)
+  - CubicSpline
 
 ## Install instructions:
 Easly install with **pip**. See https://pypi.org/project/mathsom/
@@ -23,4 +21,4 @@ Easly install with **pip**. See https://pypi.org/project/mathsom/
 
 ## Requirements:
 - Python: >=3.8
-- Packages: numpy scipy
+- Packages: numpy scipy auxfuncs

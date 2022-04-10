@@ -1,5 +1,5 @@
 from collections.abc import Sequence, Callable
-from .auxfuncs import reduce_args
+from auxfuncs import reduce_args
 from itertools import accumulate, repeat
 
 
@@ -18,8 +18,7 @@ def differentiate(func: Callable, arg: float, args: Sequence=None, argument_inde
     Returns:
     ----
         slope (float).'''
-    func = reduce_args(func, args, argument_index)    
-    
+    func = reduce_args(func, args, argument_index)
     y_fwd_step = func(arg + step)
     y_back_step = func(arg - step)
     slope = (y_fwd_step - y_back_step) / (2.0 * step)

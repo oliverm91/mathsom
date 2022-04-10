@@ -1,6 +1,6 @@
 from collections.abc import Sequence, Callable
 from .numerics import differentiate
-from .auxfuncs import reduce_args
+from auxfuncs import reduce_args
 
 
 def newton_rhapson_solver(objective_value: float, func: Callable, initial_guess: float, args: Sequence=None, argument_index: int=None, max_steps: int=100, epsilon: float=0.0000001, differentiation_step=0.0000001, verbose_step=True, retry=True) -> float:
