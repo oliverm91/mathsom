@@ -12,15 +12,15 @@ class InterpolationMethod(Enum):
 
 
 @multimethod
-def _adapt_interpolation_result(x: Union[float, Sequence, np.ndarray], result: float) -> float:
+def _adapt_interpolation_result(x: Union[int, float, Sequence, np.ndarray], result: float) -> float:
     return result
 
 @multimethod
-def _adapt_interpolation_result(x: float, result: Sequence) -> float:
+def _adapt_interpolation_result(x: Union[int, float], result: Sequence) -> float:
     return result[0]
 
 @multimethod
-def _adapt_interpolation_result(x: float, result: np.ndarray) -> float:
+def _adapt_interpolation_result(x: Union[int, float], result: np.ndarray) -> float:
     return float(result)
 
 @multimethod
