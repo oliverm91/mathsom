@@ -20,5 +20,5 @@ Easly install with **pip**. See https://pypi.org/project/mathsom/
 `pip install mathsom`
 
 ## Requirements:
-- Python: $ >= $ 3.8
+- Python: $$ >= $$ 3.8
 - Packages: numpy scipy auxfuncs
