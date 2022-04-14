@@ -4,7 +4,7 @@ Math related library meant for personal use.
 
 ## Contents:
 - Solvers (function can contain more than one input): 
-  - Newton Rhapson method (numerical differentiation)
+  - Newton Raphson method (numerical differentiation)
   - Bisection method
 - Numerical methods (function can contain more than one input):
   - Single variable differentiation
