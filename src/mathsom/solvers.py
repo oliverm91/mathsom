@@ -32,7 +32,7 @@ def newton_raphson_solver(objective_value: float, func: Callable, initial_guess:
     try:
         while abs(step) > epsilon or steps > max_steps:
             estimated_value = func(solution)
-            slope = differentiate(func, solution, argument_index)
+            slope = differentiate(func, solution, argument_index, step=differentiation_step)
             step = (estimated_value - objective_value) / slope
             solution -= step
             steps += 1
